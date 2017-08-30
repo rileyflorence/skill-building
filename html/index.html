@@ -103,7 +103,9 @@
     padding: 10px 0;
     z-index: 10;
   }
-
+figure img {
+  width: 70%;
+}
 figure {
   width: 100%;
   margin: 0 auto;
@@ -147,8 +149,9 @@ figure {
         <h2>Picture is neat</h2>
           <figure>
           <picture>
-            <source srcset="wide.jpg" media="(min-width: 600px)">
-              <img src="narrow.jpg" alt="Monk">
+            <source srcset="wide.jpg 1x, wide@2x.jpg 2x" media="(min-width: 600px)">
+            <source srcset="narrow.jpg 1x, narrow@2x.jpg 2x" media="(max-width: 600px)">
+            <img src="wide.jpg" alt="Monk">
           </picture>
           <figcaption>Change your viewport width.</figcaption>
         </figure>
