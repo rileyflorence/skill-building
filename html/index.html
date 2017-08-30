@@ -105,12 +105,15 @@
   }
 figure img {
   width: 70%;
+  max-width: 500px;
 }
+
 figure {
   width: 100%;
-  margin: 0 auto;
+  margin: 50px auto;
 }
-  figcaption {
+
+figcaption {
     color: gray;
     font-size: 11px;
     font-style: italic;
@@ -154,6 +157,13 @@ figure {
             <img src="wide.jpg" alt="Monk">
           </picture>
           <figcaption>Change your viewport width.</figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="webpImage.webp" type="image/webp" />
+            <img src="disappointed.png">
+          </picture>
+          <figcaption>If there's a cloud eating a cookie your browser supports WebP. </figcaption>
         </figure>
       </section>
 
