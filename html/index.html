@@ -42,7 +42,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 80%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 30%,rgba(255,255,255,1) 100%);
     z-index: 1;
   }
 
@@ -97,12 +97,14 @@
   footer {
     position: fixed;
     bottom: 0;
-    background: #002858;
+    background: rgba(0,0,0, 1);
+    opacity: .3;
     display: flex;
     justify-content: space-around;
     width: 100%;
     padding: 10px 0;
     z-index: 10;
+    color: #555;
   }
   figure img {
     width: 70%;
@@ -123,34 +125,38 @@
     font-style: italic;
   }
 
-.cssSVG {
-  width:500px;
-  height: 450px;
-  background-image:url('warriorhead.svg');
-  background-size: cover;
-  margin: 0 auto;
-}
+  .cssSVG {
+    width:500px;
+    height: 450px;
+    background-image:url('warriorhead.svg');
+    background-size: cover;
+    margin: 0 auto;
+  }
 
-.dataURI {
-  width:500px;
-  height: 450px;
-  background: url('data:image/svg+xml;utf8,<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>');
+  .dataURI {
+    width:500px;
+    height: 450px;
+    background: url('data:image/svg+xml;utf8,<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>');
 
-  background-size: cover;
-  margin: 0 auto;
-}
+    background-size: cover;
+    margin: 0 auto;
+  }
 
-.opti {
-  display: flex;
-  justify-content: center;
-}
+  .opti {
+    display: flex;
+    justify-content: center;
+  }
 
-#externalInfluences path:hover {
-  stroke: #59D8A1;
-  stroke-width: .2;
-  fill: #E1FFF1;
-  cursor: pointer;
-}
+  #externalInfluences path:hover {
+    stroke: #59D8A1;
+    stroke-width: .2;
+    fill: #E1FFF1;
+    cursor: pointer;
+  }
+
+  #battery {
+    font-size: 15rem;
+  }
   </style>
 </head>
 <body>
@@ -207,8 +213,8 @@
 
             <figure>
               <img src='data:image/svg+xml;utf8,<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
               </svg>'>
               <figcaption>Fig 2.2 – As Data URI</figcaption>
             </figure>
@@ -250,10 +256,16 @@
               </filter><path filter="url(#blurMe)" d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
               <figcaption>Fig 2.8 – Filter Effect.</figcaption>
             </figure>
+          </section>
+          <section>
+            <h2>Device Access</h2>
+            <p><button onclick="geoLocator()">What's my Lat and Long, bro?</button></p>
+            <div id="latLong"></div>
 
+            <p>Battery Status: <br /><span id="battery"></span></p>
 
-
-
+            <p>(Mobile) Device Orientation<br /> <span id="orientation"></span></p>
+            <p><button onclick="vibrate()">Buzzzz</button></p>
 
           </section>
 
@@ -265,6 +277,55 @@
         </footer>
 
         <script>
+        //Vibrate
+        function vibrate() {
+          window.navigator.vibrate(200);
+        }
+        //Geolocation
+        function geoLocator() {
+          var output = document.getElementById("latLong");
+
+          if (!navigator.geolocation){
+            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+            return;
+          }
+
+          function success(position) {
+            var latitude  = Math.round(position.coords.latitude * 100)/100;
+            var longitude = Math.round(position.coords.longitude * 100)/100;
+
+            output.innerHTML = '<p>Latitude is somewhere around ' + latitude + '° <br>Longitude is roughly ' + longitude + '°</p>';
+
+          }
+
+          function error() {
+            output.innerHTML = "Unable to retrieve your location";
+          }
+
+          output.innerHTML = "<p>Locating…</p>";
+
+          navigator.geolocation.getCurrentPosition(success, error);
+        };
+
+        // Battery Status
+        navigator.getBattery().then(function(battery) {
+          updateLevelInfo();
+
+          battery.addEventListener('levelchange', function(){
+            updateLevelInfo();
+          });
+          function updateLevelInfo(){
+            document.querySelector('#battery').innerHTML = Math.round(battery.level * 100)/1 + "%";
+          }});
+
+        //Orientation
+        window.addEventListener('deviceorientation', handleOrientation);
+        function handleOrientation(event) {
+          document.querySelector('#orientation').innerHTML = "Beta: " + event.beta + ", Gamma: " + event.gamma
+        };
+
+
+
         </script>
       </body>
       </html>
