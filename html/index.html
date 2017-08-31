@@ -3,6 +3,7 @@
 <head>
   <title>Apprentice</title>
   <link href="https://fonts.googleapis.com/css?family=Ceviche+One" rel="stylesheet">
+  <link href="svg.css" rel="stylesheet" type="text/css">
   <style>
   body {
     background: white;
@@ -103,22 +104,53 @@
     padding: 10px 0;
     z-index: 10;
   }
-figure img {
-  width: 70%;
-  max-width: 500px;
-}
+  figure img {
+    width: 70%;
+    max-width: 500px;
+  }
 
-figure {
-  width: 100%;
-  margin: 50px auto;
-}
+  .svgImages img {
+    width: 100%;
+  }
+  figure {
+    width: 100%;
+    margin: 50px auto;
+  }
 
-figcaption {
+  figcaption {
     color: gray;
     font-size: 11px;
     font-style: italic;
   }
 
+.cssSVG {
+  width:500px;
+  height: 450px;
+  background-image:url('warriorhead.svg');
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.dataURI {
+  width:500px;
+  height: 450px;
+  background: url('data:image/svg+xml;utf8,<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>');
+
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.opti {
+  display: flex;
+  justify-content: center;
+}
+
+#externalInfluences path:hover {
+  stroke: #59D8A1;
+  stroke-width: .2;
+  fill: #E1FFF1;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
@@ -150,30 +182,89 @@ figcaption {
       </section>
       <section>
         <h2>Picture is neat</h2>
-          <figure>
-          <picture>
-            <source srcset="wide.jpg 1x, wide@2x.jpg 2x" media="(min-width: 600px)">
-            <source srcset="narrow.jpg 1x, narrow@2x.jpg 2x" media="(max-width: 600px)">
-            <img src="wide.jpg" alt="Monk">
-          </picture>
-          <figcaption>Change your viewport width.</figcaption>
-        </figure>
         <figure>
           <picture>
-            <source srcset="webpImage.webp" type="image/webp" />
-            <img src="disappointed.png">
-          </picture>
-          <figcaption>If there's a cloud eating a cookie your browser supports WebP. </figcaption>
-        </figure>
-      </section>
+            <source srcset="wide.jpg 1x, wide@2x.jpg 2x" media="(min-width: 600px)">
+              <source srcset="narrow.jpg 1x, narrow@2x.jpg 2x" media="(max-width: 600px)">
+                <img src="wide.jpg" alt="Monk">
+              </picture>
+              <figcaption>Fig 1.1 – Change your viewport width.</figcaption>
+            </figure>
+            <figure>
+              <picture>
+                <source srcset="webpImage.webp" type="image/webp" />
+                <img src="disappointed.png">
+              </picture>
+              <figcaption>Fig 1.2 – If there's a cloud eating a cookie your browser supports WebP. </figcaption>
+            </figure>
+          </section>
+          <section class="svgImages">
+            <h2>SVG Y'All</h2>
+            <figure>
+              <img src="warrior.svg">
+              <figcaption>Fig 2.1 – Image Source Element</figcaption>
+            </figure>
 
-      </main>
-      <footer>
-        This is where a &lt;footer&gt; goes, right?
+            <figure>
+              <img src='data:image/svg+xml;utf8,<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
+              </svg>'>
+              <figcaption>Fig 2.2 – As Data URI</figcaption>
+            </figure>
 
-      </footer>
+            <figure>
+              <div class="cssSVG"></div>
+              <figcaption>Fig 2.3 – As a CSS background</figcaption>
+            </figure>
 
-      <script>
-      </script>
-    </body>
-    </html>
+            <figure>
+              <div class="dataURI" ></div>
+              <figcaption>Fig 2.4 – As a CSS Background Data URI</figcaption>
+            </figure>
+
+            <figure>
+              <svg fill="#000000" height="300px" viewBox="0 0 24 24" width="300px" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+              <figcaption>Fig 2.5 – Inline HTML Element</figcaption>
+            </figure>
+
+            <figure class="opti">
+              <div class="og">
+                <img src="warrior.svg" style="width:150px;">
+                <figcaption>Fig 2.6a – Original 1.4mb</figcaption>
+              </div>
+              <div class="og">
+                <img src="warriorOptimized.svg" style="width:150px;">
+                <figcaption>Fig 2.6b – Optimized 1.2mb</figcaption>
+              </div>
+            </figure>
+
+            <figure id="externalInfluences">
+              <svg fill="#000000" height="300px" viewBox="0 0 24 24" width="300px" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+              <figcaption>Fig 2.7 – Hover over this bad boy.</figcaption>
+            </figure>
+
+            <figure>
+              <svg fill="#59D8A1" height="300px" viewBox="0 0 24 24" width="300px" xmlns="http://www.w3.org/2000/svg"><filter id="blurMe">
+                <feGaussianBlur in="SourceGrapahic" stdDeviation=".3" />
+              </filter><path filter="url(#blurMe)" d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+              <figcaption>Fig 2.8 – Filter Effect.</figcaption>
+            </figure>
+
+
+
+
+
+          </section>
+
+        </main>
+
+        <footer>
+          This is where a &lt;footer&gt; goes, right?
+
+        </footer>
+
+        <script>
+        </script>
+      </body>
+      </html>
